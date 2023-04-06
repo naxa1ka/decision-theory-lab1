@@ -17,6 +17,22 @@ public class Matrix<T> where T : IComparable<T>
         return new MatrixElement<T>(row, column, _data[row, column]);
     }
 
+    public Matrix<T> ChangeRow(int rowIndex, MatrixElement<T>[] row)
+    {
+        T[,] destArray = (T[,])_data.Clone();
+        for (var i = 0; i < destArray.GetLength(1); i++) 
+            destArray[rowIndex, i] = row[i].Value;
+        return new Matrix<T>(destArray);
+    }
+
+    public Matrix<T> ChangeColumn(int columnIndex, MatrixElement<T>[] column)
+    {
+        T[,] destArray = (T[,])_data.Clone();
+        for (var i = 0; i < destArray.GetLength(0); i++) 
+            destArray[i, columnIndex] = column[i].Value;
+        return new Matrix<T>(destArray);
+    }
+    
     public MatrixElement<T>[] GetRow(int rowIndex)
     {
         var row = new MatrixElement<T>[Columns];
@@ -46,7 +62,7 @@ public class Matrix<T> where T : IComparable<T>
                 var columnElements = GetColumn(j);
 
                 var isRowMinimum =
-                    rowElements.All(x =>comparer.Compare(x.Value, currentElement.Value) >= 0);
+                    rowElements.All(x => comparer.Compare(x.Value, currentElement.Value) >= 0);
                 var isColumnMaximum =
                     columnElements.All(x => comparer.Compare(x.Value, currentElement.Value) <= 0);
 
