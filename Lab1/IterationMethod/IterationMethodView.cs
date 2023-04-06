@@ -14,7 +14,8 @@ public class IterationMethodView<T> : IIterationMethodView<T> where T : ICompara
     private readonly IMatrixElementFormatter<T> _defaultFormatter;
     private readonly IMatrixElementFormatter<T> _highlightFormatter;
     private readonly IFormatProvider _formatProvider;
-
+    private bool _isHeaderShown;
+    
     public IterationMethodView(
         TextWriter textWriter,
         IFormatProvider formatProvider,
@@ -26,8 +27,31 @@ public class IterationMethodView<T> : IIterationMethodView<T> where T : ICompara
         _highlightFormatter = highlightFormatter;
         _formatProvider = formatProvider;
     }
+    
+    public void Print(int currentIteration,
+        int matrixSize,
+        MatrixElement<T>[] sumOfFirstPlayer, MatrixElement<T> prevMinElement,
+        float d2, float d2Max,
+        MatrixElement<T>[] sumOfSecondPlayer, MatrixElement<T> prevMaxElement,
+        float d1, float d1Min,
+        float dk)
+    {
+        if (!_isHeaderShown)
+        {
+            PrintHeader(matrixSize);
+            _isHeaderShown = true;
+        }
 
-    public void PrintHeader(int matrixSize)
+        var str = GetFilledLine(currentIteration,
+            sumOfFirstPlayer, prevMinElement,
+            d2, d2Max,
+            sumOfSecondPlayer, prevMaxElement,
+            d1, d1Min,
+            dk);
+        _textWriter.WriteLine(str);
+    }
+
+    private void PrintHeader(int matrixSize)
     {
         var str = GetHeader(matrixSize);
         _textWriter.WriteLine(str);
@@ -46,22 +70,7 @@ public class IterationMethodView<T> : IIterationMethodView<T> where T : ICompara
         return GetFormattedLine("k", firstArray, "d2", "d2m", secondArray, "d1", "d1m", "dk");
     }
 
-    public void Print(int currentIteration,
-        MatrixElement<T>[] sumOfFirstPlayer, MatrixElement<T> prevMinElement,
-        float d2, float d2Max,
-        MatrixElement<T>[] sumOfSecondPlayer, MatrixElement<T> prevMaxElement,
-        float d1, float d1Min,
-        float dk)
-    {
-        var str = GetFilledLine(currentIteration,
-            sumOfFirstPlayer, prevMinElement,
-            d2, d2Max,
-            sumOfSecondPlayer, prevMaxElement,
-            d1, d1Min,
-            dk);
-        _textWriter.WriteLine(str);
-    }
-
+    
     private string GetFilledLine(int currentIteration,
         MatrixElement<T>[] sumOfFirstPlayer, MatrixElement<T> prevMinElement,
         float d2, float d2Max,

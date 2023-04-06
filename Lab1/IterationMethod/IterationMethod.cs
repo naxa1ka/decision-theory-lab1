@@ -37,7 +37,6 @@ public class IterationMethod
 
     public void Run()
     {
-        _view.PrintHeader(matrixSize: _matrix.Rows);
         for (_currentIteration = 1; _currentIteration < _countOfIterations+1; _currentIteration++)
             Iterate();
     }
@@ -65,6 +64,7 @@ public class IterationMethod
         var dk = _d1Min - _d2Max;
 
         _view.Print(_currentIteration,
+            matrixSize : _matrix.Rows,
             _sumOfFirstPlayer, _prevMinElement,
             d2, _d2Max,
             _sumOfSecondPlayer, _prevMaxElement,

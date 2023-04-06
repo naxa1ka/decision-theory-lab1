@@ -4,10 +4,8 @@ namespace Lab1.IterationMethod;
 
 public interface IIterationMethodView<T> where T : IComparable<T>
 {
-    void PrintHeader(int matrixSize);
-
-    void Print(
-        int currentIteration,
+    void Print(int currentIteration,
+        int matrixSize,
         MatrixElement<T>[] sumOfFirstPlayer, MatrixElement<T> prevMinElement,
         float d2,
         float d2Max,
