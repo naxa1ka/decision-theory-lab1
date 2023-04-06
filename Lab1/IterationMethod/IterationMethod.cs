@@ -25,10 +25,11 @@ public class IterationMethod
         int countOfIterations,
         int indexOfFirstRow)
     {
-        _view = view;
         _matrix = matrix;
+        if (_matrix.HasSaddlePoint(Comparer<int>.Default))
+            throw new ArgumentException("The matrix must not have a saddle point");
+        _view = view;
         _countOfIterations = countOfIterations;
-
         _sumOfFirstPlayer = MatrixElementExtensions.CreateEmptyArray<int>(_matrix.Rows);
         _sumOfSecondPlayer = MatrixElementExtensions.CreateEmptyArray<int>(_matrix.Rows);
         _prevMaxElement = new MatrixElement<int>(indexOfFirstRow, -1, -1);

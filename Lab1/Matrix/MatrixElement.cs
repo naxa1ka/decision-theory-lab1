@@ -8,6 +8,13 @@ public record MatrixElement<T>(int Row, int Column, T Value) where T : IComparab
         return new MatrixElement<T>(a.Row, a.Column, (dynamic)a.Value + (dynamic)b.Value);
     }
 
+    public MatrixElement(MatrixElement<T> matrixElement)
+    {
+        Row = matrixElement.Row;
+        Column = matrixElement.Column;
+        Value = matrixElement.Value;
+    }
+
     public virtual bool Equals(MatrixElement<T>? other)
     {
         if (other == null)

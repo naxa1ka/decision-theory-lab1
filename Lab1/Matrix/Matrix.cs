@@ -34,4 +34,27 @@ public class Matrix<T> where T : IComparable<T>
 
         return column;
     }
+
+    public bool HasSaddlePoint(IComparer<T> comparer)
+    {
+        for (var i = 0; i < Rows; i++)
+        {
+            for (var j = 0; j < Columns; j++)
+            {
+                var currentElement = new MatrixElement<T>(GetElement(i, j));
+                var rowElements = GetRow(i);
+                var columnElements = GetColumn(j);
+
+                var isRowMinimum =
+                    rowElements.All(x =>comparer.Compare(x.Value, currentElement.Value) >= 0);
+                var isColumnMaximum =
+                    columnElements.All(x => comparer.Compare(x.Value, currentElement.Value) <= 0);
+
+                if (isRowMinimum && isColumnMaximum)
+                    return true;
+            }
+        }
+
+        return false;
+    }
 }
