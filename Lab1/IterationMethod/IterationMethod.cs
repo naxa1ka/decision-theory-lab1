@@ -37,7 +37,7 @@ public class IterationMethod
 
     public void Run()
     {
-        for (_currentIteration = 1; _currentIteration < _countOfIterations+1; _currentIteration++)
+        for (_currentIteration = 1; _currentIteration < _countOfIterations + 1; _currentIteration++)
             Iterate();
     }
 
@@ -52,9 +52,9 @@ public class IterationMethod
             .GetColumn(_prevMinElement.Column)
             .Add(_sumOfSecondPlayer);
         _prevMaxElement = _sumOfSecondPlayer.Max();
-        
-        var d1 =  _prevMaxElement.Value / (float) _currentIteration;
-        var d2 = _prevMinElement.Value / (float) _currentIteration;
+
+        var d1 = _prevMaxElement.Value / (float)_currentIteration;
+        var d2 = _prevMinElement.Value / (float)_currentIteration;
 
         if (d1 < _d1Min)
             _d1Min = d1;
@@ -64,7 +64,7 @@ public class IterationMethod
         var dk = _d1Min - _d2Max;
 
         _view.Print(_currentIteration,
-            matrixSize : _matrix.Rows,
+            matrixSize: _matrix.Rows,
             _sumOfFirstPlayer, _prevMinElement,
             d2, _d2Max,
             _sumOfSecondPlayer, _prevMaxElement,
