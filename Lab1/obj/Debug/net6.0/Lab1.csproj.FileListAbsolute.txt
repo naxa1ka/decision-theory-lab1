@@ -1,0 +1,15 @@
+P:\_CSharp_Projects_\DecisionTheory\Lab1\Lab1\bin\Debug\net6.0\Lab1.exe
+P:\_CSharp_Projects_\DecisionTheory\Lab1\Lab1\bin\Debug\net6.0\Lab1.deps.json
+P:\_CSharp_Projects_\DecisionTheory\Lab1\Lab1\bin\Debug\net6.0\Lab1.runtimeconfig.json
+P:\_CSharp_Projects_\DecisionTheory\Lab1\Lab1\bin\Debug\net6.0\Lab1.dll
+P:\_CSharp_Projects_\DecisionTheory\Lab1\Lab1\bin\Debug\net6.0\Lab1.pdb
+P:\_CSharp_Projects_\DecisionTheory\Lab1\Lab1\obj\Debug\net6.0\Lab1.csproj.AssemblyReference.cache
+P:\_CSharp_Projects_\DecisionTheory\Lab1\Lab1\obj\Debug\net6.0\Lab1.GeneratedMSBuildEditorConfig.editorconfig
+P:\_CSharp_Projects_\DecisionTheory\Lab1\Lab1\obj\Debug\net6.0\Lab1.AssemblyInfoInputs.cache
+P:\_CSharp_Projects_\DecisionTheory\Lab1\Lab1\obj\Debug\net6.0\Lab1.AssemblyInfo.cs
+P:\_CSharp_Projects_\DecisionTheory\Lab1\Lab1\obj\Debug\net6.0\Lab1.csproj.CoreCompileInputs.cache
+P:\_CSharp_Projects_\DecisionTheory\Lab1\Lab1\obj\Debug\net6.0\Lab1.dll
+P:\_CSharp_Projects_\DecisionTheory\Lab1\Lab1\obj\Debug\net6.0\refint\Lab1.dll
+P:\_CSharp_Projects_\DecisionTheory\Lab1\Lab1\obj\Debug\net6.0\Lab1.pdb
+P:\_CSharp_Projects_\DecisionTheory\Lab1\Lab1\obj\Debug\net6.0\Lab1.genruntimeconfig.cache
+P:\_CSharp_Projects_\DecisionTheory\Lab1\Lab1\obj\Debug\net6.0\ref\Lab1.dll
