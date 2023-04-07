@@ -13,64 +13,65 @@ public class IterationMethod
     private MatrixElement<int> _prevMinElement;
     private MatrixElement<int> _prevMaxElement;
 
-    private readonly int _countOfIterations;
     private int _currentIteration;
 
     private float _d1Min = float.MaxValue;
     private float _d2Max = float.MinValue;
+    private float _d1;
+    private float _d2;
+    private float _dk;
 
     public IterationMethod(
         IIterationMethodView<int> view,
         IHighlightedMatrixView<int> matrixView,
-        Matrix<int> matrix,
-        int countOfIterations,
-        int indexOfFirstRow)
+        Matrix<int> matrix)
     {
         _matrix = matrix;
         if (_matrix.HasSaddlePoint(Comparer<int>.Default))
             throw new ArgumentException("The matrix must not have a saddle point");
         _view = view;
         _matrixView = matrixView;
-        _countOfIterations = countOfIterations;
         _sumOfFirstPlayer = MatrixElementExtensions.CreateEmptyArray<int>(_matrix.Rows);
         _sumOfSecondPlayer = MatrixElementExtensions.CreateEmptyArray<int>(_matrix.Rows);
-        _prevMaxElement = new MatrixElement<int>(indexOfFirstRow, -1, -1);
     }
 
-    public void Run()
+    public void Run(int indexOfFirstRow, int countOfIterations)
     {
-        for (_currentIteration = 1; _currentIteration < _countOfIterations + 1; _currentIteration++)
-            Iterate();
+        _currentIteration = 1;
+        Iterate(indexOfFirstRow);
+        
+        for (_currentIteration = 2; _currentIteration < countOfIterations + 1; _currentIteration++)
+            Iterate(_prevMaxElement.Row);
     }
 
-    private void Iterate()
+    private void Iterate(int indexOfRow)
     {
-        _sumOfFirstPlayer = _matrix
-            .GetRow(_prevMaxElement.Row)
-            .Add(_sumOfFirstPlayer);
-        _prevMinElement = _sumOfFirstPlayer.Min();
-
+        IterateFirstPlayer(indexOfRow);
         PrintSelectedRow();
 
-        _sumOfSecondPlayer = _matrix
-            .GetColumn(_prevMinElement.Column)
-            .Add(_sumOfSecondPlayer);
-        _prevMaxElement = _sumOfSecondPlayer.Max();
-
+        IterateSecondPlayer(_prevMinElement.Column);
         PrintSelectedColumn();
 
-        var d1 = _prevMaxElement.Value / (float)_currentIteration;
-        var d2 = _prevMinElement.Value / (float)_currentIteration;
-
-        if (d1 < _d1Min)
-            _d1Min = d1;
-        if (d2 > _d2Max)
-            _d2Max = d2;
-
-        var dk = _d1Min - _d2Max;
-
-        Print(d2, d1, dk);
+        CalculateD();
+        Print();
     }
+
+    private void IterateFirstPlayer(int row)
+    {
+        _sumOfFirstPlayer = _matrix
+            .GetRow(row)
+            .Add(_sumOfFirstPlayer);
+        _prevMinElement = _sumOfFirstPlayer.Min();
+    }
+
+    private void IterateSecondPlayer(int column)
+    {
+        _sumOfSecondPlayer = _matrix
+            .GetColumn(column)
+            .Add(_sumOfSecondPlayer);
+        _prevMaxElement = _sumOfSecondPlayer.Max();
+    }
+
 
     private void PrintSelectedRow()
     {
@@ -88,13 +89,26 @@ public class IterationMethod
             x => x.Equals(_prevMaxElement));
     }
 
-    private void Print(float d2, float d1, float dk)
+    private void CalculateD()
+    {
+        _d1 = _prevMaxElement.Value / (float)_currentIteration;
+        _d2 = _prevMinElement.Value / (float)_currentIteration;
+
+        if (_d1 < _d1Min)
+            _d1Min = _d1;
+        if (_d2 > _d2Max)
+            _d2Max = _d2;
+
+        _dk = _d1Min - _d2Max;
+    }
+
+    private void Print()
     {
         _view.Print(_currentIteration,
             matrixSize: _matrix.Rows,
             _sumOfFirstPlayer, _prevMinElement,
-            d2, _d2Max,
+            _d2, _d2Max,
             _sumOfSecondPlayer, _prevMaxElement,
-            d1, _d1Min, dk);
+            _d1, _d1Min, _dk);
     }
 }

@@ -9,8 +9,8 @@ var rawMatrix = FileExtensions.ReadMatrix(filePath, int.Parse);
 var matrix = new Matrix<int>(rawMatrix);
 
 var textWriter = Console.Out;
-var emptyView = new EmptyIterationMethodView<int>();
-var view = new IterationMethodView<int>(
+var emptyIterationMethodView = new EmptyIterationMethodView<int>();
+var iterationMethodView = new IterationMethodView<int>(
     textWriter, new CultureInfo("en-US"),
     new DefaultMatrixElementFormatter<int>(),
     new HighlightMatrixElementFormatter<int>());
@@ -24,5 +24,5 @@ var highlightedMatrixView = new HighlightedMatrixView<int>(matrixView,
 );
 var highlightedMatrixViewWithSpace = new HighlightedMatrixViewWithSpace<int>(textWriter, highlightedMatrixView);
 
-var iterationMethod = new IterationMethod(emptyView, highlightedMatrixViewWithSpace, matrix, 8, 0);
-iterationMethod.Run();
+var iterationMethod = new IterationMethod(iterationMethodView, emptyHighlightedMatrixView, matrix);
+iterationMethod.Run(0, 8);
