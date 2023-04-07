@@ -5,6 +5,7 @@ namespace Lab1.IterationMethod;
 public class IterationMethod
 {
     private readonly IIterationMethodView<int> _view;
+    
     private readonly IHighlightedMatrixView<int> _matrixView;
     private readonly Matrix<int> _matrix;
 
